@@ -1,3 +1,4 @@
+html,
 body {
   margin: 0;
   padding: 0;
@@ -11,4 +12,119 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+#App {
+  font-family: sans-serif;
+  height: 100vh;
+  background: #373A47;
+}
+
+#page-wrap {
+  text-align: center;
+  /* Prevent sidebar from showing scrollbar on page */
+  overflow: auto;
+}
+
+nav {
+  height: 60px;
+  width: 100%;
+}
+
+/*******************************************************
+* Menu
+*******************************************************/
+
+/* Individual item */
+.bm-item {
+  display: inline-block;
+
+  /* SIdebar itm styling */
+  text-decoration: none;
+  margin-bottom: 10px;
+  color: #d1d1d1;
+  transition: color 0.2s;
+}
+
+/* Change color on hover */
+.bm-item:hover {
+  color: white;
+}
+
+/* Position and sizing of burger button */
+.bm-burger-button {
+  position: fixed;
+  width: 26px;
+  height: 20px;
+  left: 20px;
+  top: 20px;
+}
+
+/* Color/shape of burger icon bars */
+.bm-burger-bars {
+  background: #f2f2f2;
+}
+
+/* Position and sizing of clickable cross button */
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+}
+
+/* Color/shape of close button cross */
+.bm-cross {
+  background: #bdc3c7;
+}
+
+/* General sidebar styles */
+.bm-menu {
+  background: #373a47;
+  padding: 2.5em 1.5em 0;
+  font-size: 1.15em;
+}
+
+/* Morph shape necessary with buble or elastic */
+.bm-morph-shape {
+  fill: #373a47;
+}
+
+/* Wrapper for item list */
+.bm-item-list {
+  color: #b8b7ad;
+}
+
+/* Styling of overlay */
+.bm-overlay {
+  background: rgba(0 ,0 , 0, 0.3);
+}
+
+nav button {
+  background-color: #373a47;
+  border: 0;
+  cursor: pointer;
+  font-size: 100%;
+  font-family: inherit;
+  padding: 0;
+}
+
+.search-locations-input-wrapper {
+  flex: 1;
+  /* background: #e9e; */
+}
+.search-locations-input-wrapper input {
+  width: 90%;
+  padding: 6px 10px;
+  margin-bottom: 24px;
+  font-size: 1em;
+  border: none;
+  outline: none;
+}
+
+/*******************************************************
+* Map
+*******************************************************/
+
+#map-container {
+  /* height is full viewport height minus header height */
+  height: calc(100vh - 60px);
 }
