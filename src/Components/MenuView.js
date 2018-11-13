@@ -16,7 +16,10 @@ const MenuView = (props) => (
         <button
           key={location.name}
           className="menu-item"
-          onClick={()=> {props.toggleInfo(location)}}>
+          onClick={()=> {props.toggleInfo(location)}}
+          onMouseOver={() => {props.toggleAnimate(location)}}
+          onMouseOut={() => {props.toggleAnimate(location)}}
+        >
           {location.name}
         </button>
       ))}

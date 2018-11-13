@@ -109,7 +109,6 @@ nav button {
 
 .search-locations-input-wrapper {
   flex: 1;
-  /* background: #e9e; */
 }
 .search-locations-input-wrapper input {
   width: 90%;
@@ -120,6 +119,9 @@ nav button {
   outline: none;
 }
 
+*:focus {
+  border: 1px solid white;
+}
 /*******************************************************
 * Map
 *******************************************************/
@@ -127,4 +129,8 @@ nav button {
 #map-container {
   /* height is full viewport height minus header height */
   height: calc(100vh - 60px);
+}
+
+i {
+  font-size: 0.75em;
 }

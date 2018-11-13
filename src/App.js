@@ -3,6 +3,7 @@ import MapContainer from './Components/Map';
 import MenuView from './Components/MenuView';
 import escapeRegExp from 'escape-string-regexp';
 import sortBy from 'sort-by';
+import * as FourSquareAPI from './API/FourSquareAPI.js';
 import './App.css';
 
 class App extends Component {
@@ -10,53 +11,74 @@ class App extends Component {
     query: '',
     locations: [
       {
-        name: 'Home at the Mansion',
-        position: { lat: -37.808444, lng: 144.974244 },
-        isMarkerShown: true,
-        isInfoOpen: false
+        name: 'Royal Botanic Gardens',
+        position: { lat: -37.830369, lng: 144.979606 },
+        isInfoOpen: false,
+        isAnimated: false
       },
       {
-        name: 'Flinders Backpackers',
-        position: { lat: -37.817443, lng: 144.964382 },
-        isMarkerShown: true,
-        isInfoOpen: false
+        name: 'Cookie',
+        position: { lat: -37.812005, lng: 144.965164 },
+        isInfoOpen: false,
+        isAnimated: false
       },
       {
-        name: 'Base St Kilda',
+        name: 'X Base Backpackers',
         position: { lat: -37.867272, lng: 144.979942 },
-        isMarkerShown: true,
-        isInfoOpen: false
+        isInfoOpen: false,
+        isAnimated: false
       },
       {
-        name: 'Exford Hotel',
-        position: { lat: -37.811781, lng: 144.967444 },
-        isMarkerShown: true,
-        isInfoOpen: false
+        name: 'Queen Victoria Market',
+        position: { lat: -37.806718, lng: 144.959648 },
+        isInfoOpen: false,
+        isAnimated: false
       },
       {
-        name: 'Nomads Melbourne',
-        position: { lat:  -37.809982, lng: 144.957488 },
-        isMarkerShown: true,
-        isInfoOpen: false
+        name: 'Federation Square',
+        position: { lat: -37.818236, lng: 144.967862 },
+        isInfoOpen: false,
+        isAnimated: false
       }
     ]
   }
 
-  toggleInfo = (location) => {
+  uppdateLocation = (location) => {
+    const index = this.state.locations.indexOf(location);
+    const locationsClone = this.state.locations.slice();
+
+    locationsClone.splice(index, 1, location);
+    this.setState({ locations : locationsClone });
+  }
+
+  toggleInfo = async (location) => {
+    if (!location.img) {
+      try {
+        let img = await FourSquareAPI.getInfo(location);
+        location.img = img;
+      } catch (err) {
+        console.log('Error!', err)
+      }
+    }
     if (location.isInfoOpen === false) {
       location.isInfoOpen = true;
     } else {
       location.isInfoOpen = false;
     }
-    const index = this.state.locations.indexOf(location);
-    const locationsClone = this.state.locations.slice();
-    /* Replace old location in locations with updated one */
-    locationsClone.splice(index, 1, location);
-    this.setState({ locations : locationsClone });
+    this.uppdateLocation(location);
   }
 
   updateQuery = (query) => {
     this.setState({ query: query.trim() })
+  }
+
+  toggleAnimate = (location) => {
+    if (location.isAnimated === false) {
+      location.isAnimated = true;
+    } else {
+      location.isAnimated = false;
+    }
+    this.uppdateLocation(location);
   }
 
   render() {
@@ -81,6 +103,7 @@ class App extends Component {
           updateQuery={this.updateQuery}
           showingLocations={showing}
           toggleInfo={this.toggleInfo}
+          toggleAnimate={this.toggleAnimate}
           query={query}
         />
         <main id="page-wrap">
@@ -88,6 +111,7 @@ class App extends Component {
             locations={locations}
             showingLocations={showing}
             toggleInfo={this.toggleInfo}
+            toggleAnimate={this.toggleAnimate}
           />
         </main>
       </div>
