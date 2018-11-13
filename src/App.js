@@ -1,46 +1,17 @@
 import React, { Component } from 'react';
 import MapContainer from './Components/Map';
 import MenuView from './Components/MenuView';
-import escapeRegExp from 'escape-string-regexp';
+import ErrorBoundary from './Components/ErrorBoundary';
 import sortBy from 'sort-by';
 import * as FourSquareAPI from './API/FourSquareAPI.js';
+import * as constants from './Constants';
 import './App.css';
+
 
 class App extends Component {
   state = {
     query: '',
-    locations: [
-      {
-        name: 'Royal Botanic Gardens',
-        position: { lat: -37.830369, lng: 144.979606 },
-        isInfoOpen: false,
-        isAnimated: false
-      },
-      {
-        name: 'Cookie',
-        position: { lat: -37.812005, lng: 144.965164 },
-        isInfoOpen: false,
-        isAnimated: false
-      },
-      {
-        name: 'X Base Backpackers',
-        position: { lat: -37.867272, lng: 144.979942 },
-        isInfoOpen: false,
-        isAnimated: false
-      },
-      {
-        name: 'Queen Victoria Market',
-        position: { lat: -37.806718, lng: 144.959648 },
-        isInfoOpen: false,
-        isAnimated: false
-      },
-      {
-        name: 'Federation Square',
-        position: { lat: -37.818236, lng: 144.967862 },
-        isInfoOpen: false,
-        isAnimated: false
-      }
-    ]
+    locations: constants.locations
   }
 
   uppdateLocation = (location) => {
@@ -54,17 +25,13 @@ class App extends Component {
   toggleInfo = async (location) => {
     if (!location.img) {
       try {
-        let img = await FourSquareAPI.getInfo(location);
+        const img = await FourSquareAPI.getInfo(location);
         location.img = img;
       } catch (err) {
         console.log('Error!', err)
       }
     }
-    if (location.isInfoOpen === false) {
-      location.isInfoOpen = true;
-    } else {
-      location.isInfoOpen = false;
-    }
+    location.isInfoOpen = !location.isInfoOpen;
     this.uppdateLocation(location);
   }
 
@@ -73,48 +40,42 @@ class App extends Component {
   }
 
   toggleAnimate = (location) => {
-    if (location.isAnimated === false) {
-      location.isAnimated = true;
-    } else {
-      location.isAnimated = false;
-    }
+    location.isAnimated = !location.isAnimated;
     this.uppdateLocation(location);
   }
 
   render() {
     const { locations, query } = this.state;
-
-    // Handle Search Input
-    let showing;
-    if (query) {
-      const match = new RegExp(escapeRegExp(query), 'i')
-      showing = locations.filter((location) => match.test(location.name));
-    } else {
-      showing = locations;
-    }
-
-    showing.sort(sortBy('name'))
+    const showing = (() => {
+      if (query) {
+        const regExp = constants.match(query);
+        return locations.filter((location) => regExp.test(location.name));
+      }
+      return locations;
+    })().sort(sortBy('name'));
 
     return (
-      <div id="App">
-        <MenuView
-          pageWrapId={ "page-wrap" }
-          outerContainerId={ "App" }
-          updateQuery={this.updateQuery}
-          showingLocations={showing}
-          toggleInfo={this.toggleInfo}
-          toggleAnimate={this.toggleAnimate}
-          query={query}
-        />
-        <main id="page-wrap">
-          <MapContainer
-            locations={locations}
+      <ErrorBoundary>
+        <div id="App">
+          <MenuView
+            pageWrapId={ "page-wrap" }
+            outerContainerId={ "App" }
+            updateQuery={this.updateQuery}
             showingLocations={showing}
             toggleInfo={this.toggleInfo}
             toggleAnimate={this.toggleAnimate}
+            query={query}
           />
-        </main>
-      </div>
+          <main id="page-wrap">
+            <MapContainer
+              locations={locations}
+              showingLocations={showing}
+              toggleInfo={this.toggleInfo}
+              toggleAnimate={this.toggleAnimate}
+            />
+          </main>
+        </div>
+      </ErrorBoundary>
     );
   }
 }

@@ -25,6 +25,6 @@ const MenuView = (props) => (
       ))}
     </Menu>
   </nav>
-)
+);
 
 export default MenuView;

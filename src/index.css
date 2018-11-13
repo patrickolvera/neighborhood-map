@@ -119,8 +119,8 @@ nav button {
   outline: none;
 }
 
-*:focus {
-  border: 1px solid white;
+button:focus {
+  color: white;
 }
 /*******************************************************
 * Map
@@ -133,4 +133,16 @@ nav button {
 
 i {
   font-size: 0.75em;
+}
+
+#error-message {
+  text-align: center;
+}
+
+#error-message img {
+  height: 50vw;
+}
+
+#error-message h1 {
+  font-size: 3em;
 }
