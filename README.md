@@ -2,6 +2,10 @@
 
 This is my deployment of the final assessment project for [Udacity's Front-End Web Developer Nanodegree Program](https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001). The app is fully interactive and dynamically displays images and markers for the locations I chose using data from Google Maps and FourSquare. The site is mobile ready, accessible for screenreader navigation, and the production build caches data for offline use. Neighborhood Map utilizes the Google Maps, and FourSquare APIs to show the locations and information about some of my favorite places I visited while in Melbourne, Australia.
 
+## Live Demo
+
+See Live at: [https://neighborhood-map-patrickolvera.netlify.com/](https://neighborhood-map-patrickolvera.netlify.com/)
+
 ## Installation
 
 To get Neighborhood Map up and running on your local machine there are two options; NPM and Yarn.
