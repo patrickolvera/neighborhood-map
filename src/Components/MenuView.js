@@ -1,6 +1,7 @@
 import React from 'react';
 import { pushRotate as Menu } from 'react-burger-menu';
 
+// Navbar/search bar with hamburger menu
 const MenuView = (props) => (
   <nav>
     <Menu {...props}>

@@ -1,5 +1,7 @@
 import escapeRegExp from 'escape-string-regexp'
 
+// Locations data,
+// Each must include name, position, isInfoOpen, and isAnimated
 export const locations = [
   {
     name: 'Royal Botanic Gardens',
@@ -33,4 +35,5 @@ export const locations = [
   }
 ]
 
-export const match = (query) => new RegExp(escapeRegExp(query), 'i');
+// Takes a string and creates a new RegExp after escaping special characters
+export const createRegExp = (query) => new RegExp(escapeRegExp(query), 'i');

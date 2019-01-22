@@ -11,10 +11,11 @@ import {
 const MAP_KEY = "AIzaSyAPr7UgAY_V5HaPPrE166-lqxqT1_6JV0Q";
 const MAP_URL = `https://maps.googleapis.com/maps/api/js?key=${MAP_KEY}`;
 
+// Google Map Component
 let Map = ({ showingLocations, toggleAnimate, toggleInfo }) => (
   <GoogleMap
-    defaultZoom={12}
-    defaultCenter={{ lat:  -37.809982, lng: 144.957488 }}
+    defaultZoom={13}
+    defaultCenter={{ lat:  -37.832356, lng: 144.971650 }}
   >
   {showingLocations.map((location) => (
     <Marker
@@ -53,6 +54,8 @@ let Map = ({ showingLocations, toggleAnimate, toggleInfo }) => (
 
 Map = compose(withScriptjs, withGoogleMap)(Map);
 
+// Parent Container of Google Map Component
+// Must pass all required props to Map
 const MapContainer = (props) => (
   <div id="map-container">
     <Map

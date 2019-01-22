@@ -10,10 +10,12 @@ import './App.css';
 
 class App extends Component {
   state = {
-    query: '',
-    locations: constants.locations
+    query: '', // Default Search Box is Empty String
+    locations: constants.locations // Locations Hard Coded In Constants.js
   }
 
+  // Sets this.state.locations to a copy with the updated location,
+  // passed as an argument.
   uppdateLocation = (location) => {
     const index = this.state.locations.indexOf(location);
     const locationsClone = this.state.locations.slice();
@@ -22,6 +24,8 @@ class App extends Component {
     this.setState({ locations : locationsClone });
   }
 
+  // Fetches an image for a location if none exists.
+  // Toggles location.isInfoOpen (boolean), then updates location
   toggleInfo = async (location) => {
     if (!location.img) {
       try {
@@ -35,10 +39,12 @@ class App extends Component {
     this.uppdateLocation(location);
   }
 
+  // Updates this.state.query by passing a string
   updateQuery = (query) => {
     this.setState({ query: query.trim() })
   }
 
+  // Toggles location.isAnimated (boolean), then updates location
   toggleAnimate = (location) => {
     location.isAnimated = !location.isAnimated;
     this.uppdateLocation(location);
@@ -46,9 +52,12 @@ class App extends Component {
 
   render() {
     const { locations, query } = this.state;
+    
+    // If query is a non-empty string, determines which locations to show,
+    // returns those locations, and sorts them by location.name
     const showing = (() => {
       if (query) {
-        const regExp = constants.match(query);
+        const regExp = constants.createRegExp(query);
         return locations.filter((location) => regExp.test(location.name));
       }
       return locations;
