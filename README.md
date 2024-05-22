@@ -4,7 +4,7 @@ This is my deployment of the final assessment project for [Udacity's Front-End W
 
 ## Live Demo
 
-See Live at: [https://neighborhood-map-patrickolvera.netlify.com/](https://neighborhood-map-patrickolvera.netlify.com/)
+See Live at: [https://neighborhood-map-patrickolvera.netlify.app/](https://neighborhood-map-patrickolvera.netlify.app/)
 
 ## Installation
 
